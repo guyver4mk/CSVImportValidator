@@ -1,8 +1,18 @@
 <?php
 
+class Shell
+{
+    public function Shell()
+    {
+        $shell = array('id' => null, 'first_name' => null, 'last_name' => null, 'email' => null, 'Address_1' => null, 'Address_2' => null, 'Address_3' => null, 'Town' => null, 'County' => null, 'Post_Code' => null);
+        
+        return $shell;
+    }
+}
 
 class csvImport
 {
+
     /**
      * Convert a CSV string into an array.
      * 
@@ -107,6 +117,42 @@ class csvImport
         {
             return array("return" => "error", "cols" => $count, "errors" => "Error: Too Many Columns\n\n");
         }
+
+    }
+
+
+    /**
+     * Seperate Columns Into Headed Array
+     * 
+     * @param $csv
+     * @return array
+     */
+    public function seperatedArrays($csv)
+    {
+        $row = array();
+        $file = fopen($csv, 'r');
+        while (($line = fgetcsv($file)) !== FALSE) {
+        
+            $empty = new Shell();  
+            $cols = $empty->Shell();
+
+                $cols['id']             = $line[0];
+                $cols['first_name']     = $line[1];
+                $cols['last_name']      = $line[2];
+                $cols['email']          = $line[3];
+                $cols['Address_1']      = $line[4];
+                $cols['Address_2']      = $line[5];
+                $cols['Address_3']      = $line[6];
+                $cols['Town']           = $line[7];
+                $cols['County']         = $line[8];
+                $cols['Post_Code']      = $line[9];
+            
+            $row[] = $cols;
+
+        }
+        fclose($file);
+
+        return $row;
 
     }
 }

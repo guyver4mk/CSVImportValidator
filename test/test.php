@@ -29,7 +29,11 @@ foreach($csv_file as $row)
 	$i++;
 }
 
-var_dump($return_array);
+$getArrays = $csv->seperatedArrays('includes/import.csv');
+
+var_dump($getArrays);
+
+//var_dump($return_array);
 
 //var_dump($csv_file);
 exit;
